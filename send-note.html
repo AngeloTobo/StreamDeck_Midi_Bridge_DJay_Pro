@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pi.css" />
+  </head>
+  <body>
+    <div class="ac-header">
+      <span class="ac-title">MIDI Bridge</span>
+      <span class="ac-subtitle">Note</span>
+      <span class="ac-led" id="ac-led" title="Sends a pulse when a message goes out"></span>
+    </div>
+
+    <!-- Port + live status -->
+    <div class="ac-field">
+      <label for="port">Port</label>
+      <div>
+        <div class="ac-port-row">
+          <select id="port" data-setting="portName" data-ports></select>
+          <button class="ac-step" type="button" data-action="refresh-ports" title="Refresh ports">&#8635;</button>
+        </div>
+        <div class="ac-status" id="ac-status"><span class="dot"></span><span class="label">Checking…</span></div>
+      </div>
+    </div>
+
+    <!-- Interactive note picker -->
+    <div class="ac-piano-block">
+      <div class="ac-piano-top">
+        <span class="ac-note-badge" id="ac-note-name">C2</span>
+        <div class="ac-octave">
+          <button class="ac-step ac-oct-dec" type="button">&#8722;</button>
+          <span>Oct&nbsp;<b id="ac-octave">2</b></span>
+          <button class="ac-step ac-oct-inc" type="button">+</button>
+        </div>
+      </div>
+      <div class="ac-piano" id="ac-piano"></div>
+    </div>
+
+    <div class="ac-field">
+      <label for="channel">Channel</label>
+      <div class="ac-slider-wrap">
+        <input id="channel" type="range" min="1" max="16" value="1" data-setting="channel" data-type="int" />
+        <span class="ac-value" data-for="channel">1</span>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="velocity">Velocity</label>
+      <div class="ac-slider-wrap">
+        <input id="velocity" type="range" min="0" max="127" value="127" data-setting="velocity" data-type="int" />
+        <span class="ac-value" data-for="velocity">127</span>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="behavior">Behavior</label>
+      <select id="behavior" data-setting="behavior">
+        <option value="momentary">Momentary (on while held)</option>
+        <option value="toggle">Toggle (latch on/off)</option>
+      </select>
+    </div>
+
+    <div class="ac-field">
+      <label>Key color</label>
+      <div class="ac-swatches" data-default="#7c3aed">
+        <div class="ac-swatch" data-color="#7c3aed"></div>
+        <div class="ac-swatch" data-color="#e040fb"></div>
+        <div class="ac-swatch" data-color="#f472b6"></div>
+        <div class="ac-swatch" data-color="#c4b5fd"></div>
+        <div class="ac-swatch" data-color="#34d399"></div>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="autoLabel">Auto-label</label>
+      <input id="autoLabel" type="checkbox" data-setting="autoLabel" />
+    </div>
+
+    <div class="ac-actions">
+      <button class="ac-button is-primary" type="button" data-action="test">Test send</button>
+      <button class="ac-button" type="button" data-action="set-default">Set default port</button>
+    </div>
+
+    <p class="ac-hint">
+      In djay Pro, open <strong>MIDI mapping</strong>, click the action, then hit <strong>Test send</strong> (or press the key) to learn it.
+    </p>
+
+    <script src="pi-common.js"></script>
+  </body>
+</html>

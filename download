@@ -1,0 +1,5 @@
+node_modules/
+com.angelocreates.midibridge.sdPlugin/node_modules/
+com.angelocreates.midibridge.sdPlugin/bin/
+*.streamDeckPlugin
+.DS_Store

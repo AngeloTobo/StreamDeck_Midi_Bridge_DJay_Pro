@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "UUID": "com.angelocreates.midibridge",
+  "Name": "MIDI Bridge",
+  "Version": "1.1.0.0",
+  "Author": "AngeloCreates",
+  "Description": "Turn any Stream Deck key into a MIDI controller. Sends Notes and CC to a virtual MIDI port for djay Pro and other MIDI-learn software.",
+  "Category": "MIDI Bridge",
+  "CodePath": "bin/plugin.js",
+  "Icon": "imgs/plugin/marketplace",
+  "CategoryIcon": "imgs/plugin/category-icon",
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "6.6"
+  },
+  "OS": [
+    { "Platform": "windows", "MinimumVersion": "10" },
+    { "Platform": "mac", "MinimumVersion": "12" }
+  ],
+  "Nodejs": {
+    "Version": "20",
+    "Debug": "enabled"
+  },
+  "Actions": [
+    {
+      "Name": "Send MIDI Note",
+      "UUID": "com.angelocreates.midibridge.note",
+      "Icon": "imgs/actions/note/icon",
+      "Tooltip": "Send a MIDI Note On/Off to a virtual port.",
+      "PropertyInspectorPath": "ui/send-note.html",
+      "Controllers": ["Keypad"],
+      "States": [
+        { "Image": "imgs/actions/note/key", "TitleAlignment": "bottom" }
+      ]
+    },
+    {
+      "Name": "Send MIDI CC",
+      "UUID": "com.angelocreates.midibridge.cc",
+      "Icon": "imgs/actions/cc/icon",
+      "Tooltip": "Send a MIDI Control Change to a virtual port.",
+      "PropertyInspectorPath": "ui/send-cc.html",
+      "Controllers": ["Keypad"],
+      "States": [
+        { "Image": "imgs/actions/cc/key", "TitleAlignment": "bottom" }
+      ]
+    }
+  ]
+}

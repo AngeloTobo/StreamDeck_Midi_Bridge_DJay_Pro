@@ -1,0 +1,24 @@
+{
+  "name": "midi-bridge",
+  "version": "1.1.0",
+  "description": "AngeloCreates MIDI Bridge — Stream Deck plugin that sends MIDI Notes/CC to a virtual port.",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w --watch.onEnd=\"streamdeck restart com.angelocreates.midibridge\"",
+    "postinstall": "npm --prefix com.angelocreates.midibridge.sdPlugin install @julusian/midi@^3"
+  },
+  "dependencies": {
+    "@elgato/streamdeck": "^1",
+    "@julusian/midi": "^3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28",
+    "@rollup/plugin-node-resolve": "^16",
+    "@rollup/plugin-typescript": "^12",
+    "@types/node": "^20",
+    "rollup": "^4",
+    "tslib": "^2",
+    "typescript": "^5"
+  }
+}

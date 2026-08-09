@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pi.css" />
+  </head>
+  <body>
+    <div class="ac-header">
+      <span class="ac-title">MIDI Bridge</span>
+      <span class="ac-subtitle">Control Change</span>
+      <span class="ac-led" id="ac-led" title="Sends a pulse when a message goes out"></span>
+    </div>
+
+    <div class="ac-field">
+      <label for="port">Port</label>
+      <div>
+        <div class="ac-port-row">
+          <select id="port" data-setting="portName" data-ports></select>
+          <button class="ac-step" type="button" data-action="refresh-ports" title="Refresh ports">&#8635;</button>
+        </div>
+        <div class="ac-status" id="ac-status"><span class="dot"></span><span class="label">Checking…</span></div>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="channel">Channel</label>
+      <div class="ac-slider-wrap">
+        <input id="channel" type="range" min="1" max="16" value="1" data-setting="channel" data-type="int" />
+        <span class="ac-value" data-for="channel">1</span>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="controller">CC number</label>
+      <div class="ac-slider-wrap">
+        <input id="controller" type="range" min="0" max="127" value="1" data-setting="controller" data-type="int" />
+        <span class="ac-value" data-for="controller">1</span>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="onValue">On value</label>
+      <div class="ac-slider-wrap">
+        <input id="onValue" type="range" min="0" max="127" value="127" data-setting="onValue" data-type="int" />
+        <span class="ac-value" data-for="onValue">127</span>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="offValue">Off value</label>
+      <div class="ac-slider-wrap">
+        <input id="offValue" type="range" min="0" max="127" value="0" data-setting="offValue" data-type="int" />
+        <span class="ac-value" data-for="offValue">0</span>
+      </div>
+    </div>
+
+    <div class="ac-field">
+      <label for="behavior">Behavior</label>
+      <select id="behavior" data-setting="behavior">
+        <option value="momentary">Momentary (on press, off release)</option>
+        <option value="toggle">Toggle (latch on/off)</option>
+      </select>
+    </div>
+
+    <div class="ac-field">
+      <label>Key color</label>
+      <div class="ac-swatches" data-default="#e040fb">
+        <div class="ac-swatch" data-color="#7c3aed"></div>
+        <div class="ac-swatch" data-color="#e040fb"></div>
+        <div class="ac-swatch" data-color="#f472b6"></div>
+        <div class="ac-swatch" data-color="#c4b5fd"></div>
+        <div class="ac-swatch" data-color="#34d399"></div>
+      </div>
+    </div>
+
+    <div class="ac-actions">
+      <button class="ac-button is-primary" type="button" data-action="test">Test send</button>
+      <button class="ac-button" type="button" data-action="set-default">Set default port</button>
+    </div>
+
+    <p class="ac-hint">
+      Use CC for switch-style controls — <strong>filter on/off</strong>, <strong>bass kill</strong>, FX enable.
+    </p>
+
+    <script src="pi-common.js"></script>
+  </body>
+</html>

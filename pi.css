@@ -1,0 +1,409 @@
+/* AngeloCreates MIDI Bridge — Property Inspector theme v1.1
+   Surreal sci-fi: void base, violet/rose chromatics, bloom. No blue. */
+
+:root {
+  --ac-void: #0a0a0f;
+  --ac-deep: #12101a;
+  --ac-surface: #1e1a2e;
+  --ac-border: #2e2845;
+
+  --ac-violet: #7c3aed;
+  --ac-rose: #e040fb;
+  --ac-pink: #f472b6;
+  --ac-mist: #c4b5fd;
+
+  --ac-white: #f0ecff;
+  --ac-grey: #8b85a0;
+  --ac-subtle: #4a4560;
+
+  --ac-online: #34d399;
+  --ac-offline: #fb7185;
+
+  --ac-glow-violet: 0 0 18px rgba(124, 58, 237, 0.5);
+  --ac-glow-rose: 0 0 18px rgba(224, 64, 251, 0.45);
+  --ac-radius: 10px;
+  --ac-gap: 13px;
+
+  --font-display: "Space Grotesk", "DM Sans", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 16px 14px 22px;
+  background: var(--ac-void);
+  color: var(--ac-white);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Faint grain so the panel doesn't read as a flat AI gradient */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- Header ---------- */
+.ac-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--ac-border);
+}
+
+.ac-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, var(--ac-violet), var(--ac-rose), var(--ac-pink), var(--ac-violet));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: acShimmer 6s linear infinite;
+}
+
+@keyframes acShimmer {
+  to {
+    background-position: 300% 0;
+  }
+}
+
+.ac-subtitle {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ac-grey);
+  margin-right: auto;
+}
+
+/* Activity LED — pulses when the plugin actually sends a message */
+.ac-led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ac-subtle);
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.ac-led.is-active {
+  background: var(--ac-pink);
+  box-shadow: 0 0 12px 2px var(--ac-rose);
+}
+
+/* ---------- Fields ---------- */
+.ac-field {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--ac-gap);
+}
+
+.ac-field label {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ac-mist);
+}
+
+select,
+input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--ac-surface);
+  color: var(--ac-white);
+  border: 1px solid var(--ac-border);
+  border-radius: var(--ac-radius);
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:focus,
+input[type="number"]:focus {
+  border-color: var(--ac-violet);
+  box-shadow: var(--ac-glow-violet);
+}
+
+select:hover,
+input[type="number"]:hover {
+  border-color: var(--ac-subtle);
+}
+
+/* ---------- Range sliders ---------- */
+.ac-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--ac-violet), var(--ac-rose));
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ac-white);
+  border: 2px solid var(--ac-violet);
+  box-shadow: var(--ac-glow-violet);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ac-white);
+  border: 2px solid var(--ac-violet);
+  cursor: pointer;
+}
+
+.ac-value {
+  min-width: 34px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--ac-mist);
+  background: var(--ac-deep);
+  border: 1px solid var(--ac-border);
+  border-radius: 7px;
+  padding: 3px 0;
+}
+
+/* ---------- Piano note picker ---------- */
+.ac-piano-block {
+  margin-bottom: var(--ac-gap);
+}
+
+.ac-piano-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ac-note-badge {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ac-white);
+  text-shadow: var(--ac-glow-rose);
+}
+
+.ac-octave {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ac-grey);
+}
+
+.ac-step {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--ac-surface);
+  border: 1px solid var(--ac-border);
+  color: var(--ac-mist);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.ac-step:hover {
+  border-color: var(--ac-violet);
+  color: var(--ac-white);
+}
+
+.ac-piano {
+  position: relative;
+  height: 66px;
+  display: flex;
+  gap: 3px;
+  user-select: none;
+}
+
+.ac-key-white {
+  flex: 1;
+  background: var(--ac-surface);
+  border: 1px solid var(--ac-border);
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.ac-key-white:hover {
+  background: #2a2440;
+}
+
+.ac-key-black {
+  position: absolute;
+  top: 0;
+  width: 9%;
+  height: 62%;
+  background: #0d0b14;
+  border: 1px solid var(--ac-border);
+  border-radius: 0 0 5px 5px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.12s ease, box-shadow 0.12s ease;
+}
+
+.ac-key-black:hover {
+  background: #171224;
+}
+
+.ac-key-white.is-selected,
+.ac-key-black.is-selected {
+  background: linear-gradient(180deg, var(--ac-rose), var(--ac-violet));
+  border-color: var(--ac-pink);
+  box-shadow: var(--ac-glow-rose);
+}
+
+.ac-key-black[data-semi="1"] { left: 9.5%; }
+.ac-key-black[data-semi="3"] { left: 23.5%; }
+.ac-key-black[data-semi="6"] { left: 52%; }
+.ac-key-black[data-semi="8"] { left: 66.5%; }
+.ac-key-black[data-semi="10"] { left: 80.5%; }
+
+/* ---------- Color swatches ---------- */
+.ac-swatches {
+  display: flex;
+  gap: 8px;
+}
+
+.ac-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ac-swatch:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.ac-swatch.is-selected {
+  border-color: var(--ac-white);
+  box-shadow: var(--ac-glow-violet);
+}
+
+/* ---------- Buttons ---------- */
+.ac-actions {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 12px;
+}
+
+.ac-button {
+  flex: 1;
+  padding: 9px 12px;
+  background: transparent;
+  color: var(--ac-mist);
+  border: 1px solid var(--ac-violet);
+  border-radius: var(--ac-radius);
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, color 0.2s ease;
+}
+
+.ac-button:hover {
+  transform: translateY(-2px);
+  color: var(--ac-white);
+  box-shadow: var(--ac-glow-violet);
+}
+
+.ac-button.is-primary {
+  border-color: var(--ac-rose);
+  color: var(--ac-white);
+  background: linear-gradient(120deg, rgba(124, 58, 237, 0.25), rgba(224, 64, 251, 0.25));
+}
+
+.ac-button.is-primary:hover {
+  box-shadow: var(--ac-glow-rose);
+}
+
+/* ---------- Port row + status ---------- */
+.ac-port-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ac-port-row select {
+  flex: 1;
+}
+
+.ac-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ac-grey);
+  margin-top: 4px;
+}
+
+.ac-status .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ac-subtle);
+}
+
+.ac-status.is-online .dot { background: var(--ac-online); box-shadow: 0 0 8px var(--ac-online); }
+.ac-status.is-online { color: var(--ac-online); }
+.ac-status.is-offline .dot { background: var(--ac-offline); }
+.ac-status.is-offline { color: var(--ac-offline); }
+
+/* ---------- Hint ---------- */
+.ac-hint {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--ac-deep);
+  border: 1px solid var(--ac-border);
+  border-left: 2px solid var(--ac-rose);
+  border-radius: 8px;
+  font-size: 11px;
+  color: var(--ac-grey);
+}
+
+.ac-hint strong {
+  color: var(--ac-mist);
+  font-weight: 600;
+}
